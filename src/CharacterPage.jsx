@@ -26,8 +26,12 @@ import { GetCharacterInfo,
   GetLocationInfo, 
   GetOriginInfo 
 } from "./services/charactersService";
+import { Fetcher } from "./services/Fetcher";
 
 const CharacterPage = () => {
+
+    const fetcher = new Fetcher('https://rickandmortyapi.com/api');
+
   const [characterData, setCharacterData] = useState();
   const [locationData, setLocationData] = useState();
   const [originData, setOriginData] = useState();
@@ -36,15 +40,19 @@ const CharacterPage = () => {
 
   useEffect(() => {
     if (!characterId) return;
-    GetCharacterInfo(characterId).then((data) => {
+    fetcher.fetchData(`https://rickandmortyapi.com/api/character/${id}`)
+    .then((data) => {
       setCharacterData(data);
       if (data.origin.url) {
-        GetOriginInfo(data.origin.url).then(setOriginData);
+        fetcher.fetchData(data.origin.url)
+        .then(setOriginData);
       }
       if (data.location.url) {
-        GetLocationInfo(data.location.url).then(setLocationData);
+        fetcher.fetchData(data.location.url)
+        .then(setLocationData);
       }
-      GetEpisodesInfo(data.episode).then(setEpisodesData);
+      fetcher.fetchData(data.episode)
+      .then(setEpisodesData);
     });
   }, [characterId]);
 

@@ -20,8 +20,12 @@ import {
 } from "semantic-ui-react";
 import { useNavigate } from "react-router-dom";
 import { CharacterContext } from "./App";
+import { Fetcher } from "./services/Fetcher";
 
 const CharactersPages = () => {
+
+  const fetcher = new Fetcher('https://rickandmortyapi.com/api');
+
   const navigate = useNavigate();
   const { setCharacterId } = useContext(CharacterContext);
   const [characters, setCharacters] = useState();
