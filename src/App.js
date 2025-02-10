@@ -22,13 +22,22 @@ function App() {
     return savedPage ? JSON.parse(savedPage) : 1;
   });
 
+  const [status, setStatus] = useState(() => {
+    const savedStatus = localStorage.getItem('status');
+    return savedStatus ? JSON.parse(savedStatus): 'none';
+  });
+
   useEffect(() => {
     localStorage.setItem('characterId', JSON.stringify(characterId));
-    localStorage.setItem('activePage', JSON.stringify(page))
-  }, [characterId, page]);
+    localStorage.setItem('activePage', JSON.stringify(page));
+    localStorage.setItem('status', JSON.stringify(status));
+  }, [characterId, page, status]);
 
   return (
-    <PageContext.Provider value={{ characterId, setCharacterId, page, setPage }}>
+    <PageContext.Provider value={{ 
+      characterId, setCharacterId, 
+      page, setPage , 
+      status, setStatus}}>
       <Router>
         <Routes>
           {/* Route for characters list */}

@@ -26,10 +26,13 @@ const CharactersPages = () => {
   const fetcher = new Fetcher('https://rickandmortyapi.com/api');
 
   const navigate = useNavigate();
-  const { characterId, setCharacterId, page, setPage } = useContext(PageContext);
+  const { 
+    characterId, setCharacterId, 
+    page, setPage,
+    status, setStatus
+  } = useContext(PageContext);
   const [characters, setCharacters] = useState();
   const [maxPage, setMaxPage] = useState();
-  const [status, setStatus] = useState();
   const statuses = [
     { key: "alive", value: "alive", text: "Alive" },
     { key: "dead", value: "dead", text: "Dead" },
@@ -62,6 +65,7 @@ const CharactersPages = () => {
 
   const changeStatus = (event, data) => {
     setStatus(data.value);
+    setPage(1);
   };
 
   return (
