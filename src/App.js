@@ -13,24 +13,24 @@ export const PageContext = createContext();
 function App() {
 
   const [characterId, setCharacterId] = useState(() => {
-    const savedCharacterId = localStorage.getItem('characterId');
+    const savedCharacterId = sessionStorage.getItem('characterId');
     return savedCharacterId ? JSON.parse(savedCharacterId) : 1;
   });
 
   const [page, setPage] = useState(() => {
-    const savedPage = localStorage.getItem('activePage');
+    const savedPage = sessionStorage.getItem('activePage');
     return savedPage ? JSON.parse(savedPage) : 1;
   });
 
   const [status, setStatus] = useState(() => {
-    const savedStatus = localStorage.getItem('status');
+    const savedStatus = sessionStorage.getItem('status');
     return savedStatus ? JSON.parse(savedStatus): 'none';
   });
 
   useEffect(() => {
-    localStorage.setItem('characterId', JSON.stringify(characterId));
-    localStorage.setItem('activePage', JSON.stringify(page));
-    localStorage.setItem('status', JSON.stringify(status));
+    sessionStorage.setItem('characterId', JSON.stringify(characterId));
+    sessionStorage.setItem('activePage', JSON.stringify(page));
+    sessionStorage.setItem('status', JSON.stringify(status));
   }, [characterId, page, status]);
 
   return (
