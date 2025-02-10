@@ -21,11 +21,6 @@ import {
   Segment
 } from "semantic-ui-react";
 import { CharacterContext } from "./App";
-import { GetCharacterInfo,
-  GetEpisodesInfo, 
-  GetLocationInfo, 
-  GetOriginInfo 
-} from "./services/charactersService";
 import Fetcher from "./services/Fetcher";
 
 const CharacterPage = () => {
@@ -62,8 +57,7 @@ const CharacterPage = () => {
         console.error('Error fetching character data:', error);
       }
     }
-    
-    
+
     fetchCharacterData();
   }, [characterId]);
 

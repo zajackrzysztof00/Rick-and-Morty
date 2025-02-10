@@ -3,7 +3,6 @@ import {
   useEffect, 
   useState 
 } from "react";
-import { GetCharacters } from "./services/charactersService";
 import {
   Table,
   TableRow,
@@ -40,10 +39,21 @@ const CharactersPages = () => {
   ];
 
   useEffect(() => {
-    GetCharacters(page, status).then((data) => {
-      setCharacters(data);
-      setMaxPage(data.info.pages);
-    });
+    const fetchCharacterData = async() => {
+      try {
+        let data;
+        if (status == undefined || status == 'none'){
+          data = await fetcher.fetchData(`https://rickandmortyapi.com/api/character/?page=${page}`)
+        } else {
+          data = await fetcher.fetchData(`https://rickandmortyapi.com/api/character/?page=${page}&status=${status}`)
+        }
+        setCharacters(data);
+        setMaxPage(data.info.pages);
+      } catch (error) {
+        console.error('Error fetching characters data:', error);
+      }
+    }
+    fetchCharacterData();
   }, [page, status]);
 
   const handleCellClick = (id) => {
