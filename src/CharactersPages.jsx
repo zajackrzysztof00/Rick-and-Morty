@@ -20,7 +20,7 @@ import {
 } from "semantic-ui-react";
 import { useNavigate } from "react-router-dom";
 import { CharacterContext } from "./App";
-import { Fetcher } from "./services/Fetcher";
+import Fetcher from "./services/Fetcher";
 
 const CharactersPages = () => {
 

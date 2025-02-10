@@ -26,7 +26,7 @@ import { GetCharacterInfo,
   GetLocationInfo, 
   GetOriginInfo 
 } from "./services/charactersService";
-import { Fetcher } from "./services/Fetcher";
+import Fetcher from "./services/Fetcher";
 
 const CharacterPage = () => {
 
@@ -39,21 +39,32 @@ const CharacterPage = () => {
   const [episodesData, setEpisodesData] = useState([]);
 
   useEffect(() => {
-    if (!characterId) return;
-    fetcher.fetchData(`https://rickandmortyapi.com/api/character/${id}`)
-    .then((data) => {
-      setCharacterData(data);
-      if (data.origin.url) {
-        fetcher.fetchData(data.origin.url)
-        .then(setOriginData);
+    const fetchCharacterData = async() => {
+      if (!characterId) return;
+      try {
+        const data = await fetcher.fetchData(`https://rickandmortyapi.com/api/character/${characterId}`)
+        console.log("Fetched character data:", data);
+        setCharacterData(data);
+        if (data.origin.url) {
+          console.log("Origin URL found:", data.origin.url);
+          const origin = await fetcher.fetchData(data.origin.url)
+          setOriginData(origin);
+        }
+        if (data.location.url) {
+          const location  = await fetcher.fetchData(data.location.url)
+          setLocationData(location);
+        }
+        const episodeDataPromises = data.episode.map((url) => fetcher.fetchData(url));
+        const episodes = await Promise.all(episodeDataPromises);
+        setEpisodesData(episodes);
+
+      } catch (error) {
+        console.error('Error fetching character data:', error);
       }
-      if (data.location.url) {
-        fetcher.fetchData(data.location.url)
-        .then(setLocationData);
-      }
-      fetcher.fetchData(data.episode)
-      .then(setEpisodesData);
-    });
+    }
+    
+    
+    fetchCharacterData();
   }, [characterId]);
 
   return (
