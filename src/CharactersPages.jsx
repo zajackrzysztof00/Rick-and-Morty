@@ -28,7 +28,6 @@ const CharactersPages = () => {
   const navigate = useNavigate();
   const { characterId, setCharacterId, page, setPage } = useContext(PageContext);
   const [characters, setCharacters] = useState();
-  //const [page, setPage] = useState(1);
   const [maxPage, setMaxPage] = useState();
   const [status, setStatus] = useState();
   const statuses = [
