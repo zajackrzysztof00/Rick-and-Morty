@@ -18,7 +18,7 @@ import {
   Container
 } from "semantic-ui-react";
 import { useNavigate } from "react-router-dom";
-import { CharacterContext } from "./App";
+import { PageContext } from "./App";
 import Fetcher from "./services/Fetcher";
 
 const CharactersPages = () => {
@@ -26,9 +26,9 @@ const CharactersPages = () => {
   const fetcher = new Fetcher('https://rickandmortyapi.com/api');
 
   const navigate = useNavigate();
-  const { setCharacterId } = useContext(CharacterContext);
+  const { characterId, setCharacterId, page, setPage } = useContext(PageContext);
   const [characters, setCharacters] = useState();
-  const [page, setPage] = useState(1);
+  //const [page, setPage] = useState(1);
   const [maxPage, setMaxPage] = useState();
   const [status, setStatus] = useState();
   const statuses = [
@@ -112,7 +112,7 @@ const CharactersPages = () => {
 
         {maxPage && (
           <Pagination
-            defaultActivePage={1}
+            defaultActivePage={page}
             totalPages={maxPage}
             onPageChange={(event, data) => setPage(data.activePage)}
             style={{ marginTop: "1em" }}

@@ -20,7 +20,7 @@ import {
   Divider,
   Segment
 } from "semantic-ui-react";
-import { CharacterContext } from "./App";
+import { PageContext } from "./App";
 import Fetcher from "./services/Fetcher";
 
 const CharacterPage = () => {
@@ -30,7 +30,7 @@ const CharacterPage = () => {
   const [characterData, setCharacterData] = useState();
   const [locationData, setLocationData] = useState();
   const [originData, setOriginData] = useState();
-  const { characterId } = useContext(CharacterContext);
+  const { characterId } = useContext(PageContext);
   const [episodesData, setEpisodesData] = useState([]);
 
   useEffect(() => {
