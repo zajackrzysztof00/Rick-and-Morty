@@ -1,5 +1,6 @@
 {
   "name": "swi",
+  "homepage": "https://zajackrzysztof00.github.io/Rick-and-Morty/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
