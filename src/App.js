@@ -38,7 +38,7 @@ function App() {
       characterId, setCharacterId, 
       page, setPage , 
       status, setStatus}}>
-      <Router>
+      <Router basename="/Rick-and-Morty">
         <Routes>
           {/* Route for characters list */}
           <Route path="/" element={<CharactersPages />} />
